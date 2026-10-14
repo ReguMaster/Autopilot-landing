@@ -815,3 +815,516 @@ footer a:hover {
         left: 0;
     }
 }
+
+/* 움직임: 이동·확대 거리는 --move를 곱해 쓴다. 움직임 줄이기 설정이면 0이 되고, 투명도·색 전환은 남는다. */
+:root {
+    --move: 1;
+    interpolate-size: allow-keywords;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --move: 0;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .btn:hover .glyph {
+        animation: nudge 0.9s var(--ease) infinite;
+    }
+
+    .loop-track {
+        animation: loop 44s linear infinite;
+    }
+
+    .loop:hover .loop-track {
+        animation-play-state: paused;
+    }
+}
+
+.caret {
+    animation: blink 1.1s steps(1) infinite;
+}
+
+/* 등장 */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(calc(36px * var(--move))) scale(calc(1 - 0.02 * var(--move)));
+    filter: blur(10px);
+    transition:
+        opacity 0.9s var(--ease),
+        transform 0.9s var(--ease),
+        filter 0.9s var(--ease);
+}
+
+.js .reveal.in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+.w {
+    display: inline-block;
+}
+
+.split-mask .w {
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+}
+
+.split-mask .w > span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(calc(112% * var(--move)));
+    transition:
+        transform 1s var(--ease) calc(var(--i) * 60ms),
+        opacity 0.8s var(--ease) calc(var(--i) * 60ms);
+}
+
+.split-mask.in .w > span {
+    opacity: 1;
+    transform: none;
+}
+
+.hero-copy p,
+.hero-actions,
+.layer img {
+    animation: rise 1.1s var(--ease) both;
+}
+
+.hero-copy p {
+    animation-delay: 0.45s;
+}
+
+.hero-copy .hero-actions {
+    animation-delay: 0.6s;
+}
+
+.layer.back img {
+    animation-name: slideBack;
+    animation-delay: 0.3s;
+}
+
+.layer.front img {
+    animation-name: slideFront;
+    animation-delay: 0.5s;
+}
+
+/* 버튼: 커서 방향 채움, 글자 롤, 자석 */
+.js .btn {
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--s, 1));
+    transition:
+        transform 0.4s var(--ease),
+        color 0.35s,
+        box-shadow 0.35s;
+}
+
+.js .btn:active {
+    --s: 0.96;
+}
+
+.js .btn::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: var(--bx, 50%);
+    top: var(--by, 50%);
+    width: 360px;
+    height: 360px;
+    margin: -180px 0 0 -180px;
+    border-radius: 50%;
+    background: var(--ink);
+    transform: scale(0);
+    transition: transform 0.6s var(--ease);
+}
+
+.js .btn:hover::before {
+    transform: scale(1);
+}
+
+.js .btn-primary:hover {
+    background: var(--accent);
+}
+
+.js .btn-ghost:hover {
+    background: transparent;
+}
+
+.roll-in {
+    position: relative;
+    display: block;
+    transition: transform 0.5s var(--ease);
+}
+
+.roll-in::after {
+    content: attr(data-t);
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+.btn:hover .roll-in {
+    transform: translateY(calc(-100% * var(--move)));
+}
+
+/* 상단 */
+.js .nav::before {
+    opacity: 0;
+}
+
+.js .nav.scrolled::before {
+    opacity: 1;
+}
+
+.nav .brand img {
+    transition: transform 0.5s var(--ease);
+}
+
+.nav .brand:hover img {
+    transform: rotate(calc(-4deg * var(--move))) scale(calc(1 + 0.06 * var(--move)));
+}
+
+.nav .pill {
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 50%;
+    width: var(--w, 0px);
+    height: 36px;
+    margin-top: -18px;
+    border-radius: 999px;
+    background: var(--surface);
+    opacity: 0;
+    transform: translateX(var(--x, 0px));
+    transition:
+        transform 0.45s var(--ease),
+        width 0.45s var(--ease),
+        opacity 0.25s;
+}
+
+.nav .pill.show {
+    opacity: 1;
+}
+
+/* 히어로: 커서 기울기와 층별 깊이 */
+.hero-stage,
+.js .stage {
+    transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+
+.back .depth {
+    transform: translate3d(calc(var(--px, 0) * 26px), calc(var(--py, 0) * 18px), 0);
+}
+
+.front .depth {
+    transform: translate3d(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -10px), 0);
+}
+
+/* 사용 방법: 진행선과 화면 전환 */
+.js .steps {
+    padding-left: 32px;
+}
+
+.js .steps::before,
+.rail-fill {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 40px;
+    width: 3px;
+    border-radius: 2px;
+}
+
+.js .steps::before {
+    bottom: 40px;
+    background: #dfe2ec;
+}
+
+.rail-fill {
+    height: var(--rail, 0px);
+    background: var(--accent);
+    transition: height 0.7s var(--ease);
+}
+
+.js .step {
+    opacity: 0.35;
+    transition:
+        opacity 0.5s var(--ease),
+        translate 0.6s var(--ease);
+}
+
+.js .step.active {
+    opacity: 1;
+    translate: calc(10px * var(--move)) 0;
+}
+
+.js .stage img {
+    opacity: 1;
+    clip-path: inset(100% 0 0 0 round var(--radius));
+    scale: calc(1 + 0.08 * var(--move));
+    transition:
+        clip-path 0.9s var(--ease),
+        scale 1.1s var(--ease);
+}
+
+.js .stage img.active {
+    clip-path: inset(0 0 0 0 round var(--radius));
+    scale: 1;
+}
+
+/* 성과: 숫자 세기, 줄 채움 */
+.outcome::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--tint);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease);
+}
+
+.outcome:hover::before {
+    transform: scaleX(1);
+}
+
+.outcome-label,
+.outcome-value {
+    transition: translate 0.6s var(--ease);
+}
+
+.outcome:hover .outcome-label {
+    translate: calc(14px * var(--move)) 0;
+}
+
+.outcome:hover .outcome-value {
+    translate: calc(-14px * var(--move)) 0;
+}
+
+.outcome-value .arrow {
+    transition:
+        translate 0.8s var(--ease),
+        color 0.8s;
+}
+
+.outcome:hover .arrow {
+    translate: calc(8px * var(--move)) 0;
+}
+
+.outcome-value .after {
+    transition: color 0.8s var(--ease) 0.2s;
+}
+
+.js .outcome:not(.in) .arrow {
+    color: #a2a7ba;
+}
+
+.js .outcome:not(.in) .after {
+    color: var(--ink);
+}
+
+/* 기능: 스포트라이트, 떠오르기, 타자 */
+.cell {
+    transition: translate 0.5s var(--ease);
+}
+
+.cell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(54 86 214 / 0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.cell-branch::before {
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.16), transparent 70%);
+}
+
+.cell:hover {
+    translate: 0 calc(-6px * var(--move));
+}
+
+.cell:hover::before {
+    opacity: 1;
+}
+
+.cell img.crop {
+    transform-origin: 50% 100%;
+    transition: transform 0.7s var(--ease);
+}
+
+.cell:hover img.crop {
+    transform: scale(calc(1 + 0.03 * var(--move))) translateY(calc(-4px * var(--move)));
+}
+
+.typer.typing::after {
+    content: "";
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background: #fff;
+    animation: blink 0.9s steps(1) infinite;
+}
+
+/* 자주 묻는 질문: 높이를 부드럽게 연다 */
+.faq-list details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+        block-size 0.5s var(--ease),
+        content-visibility 0.5s allow-discrete;
+}
+
+.faq-list details[open]::details-content {
+    block-size: auto;
+}
+
+.faq-list summary {
+    transition:
+        translate 0.5s var(--ease),
+        color 0.3s;
+}
+
+.faq-list summary:hover {
+    translate: calc(8px * var(--move)) 0;
+}
+
+.faq-list summary::after {
+    transition: transform 0.5s var(--ease);
+}
+
+/* 마지막: 커서를 따라가는 빛 */
+.final-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), rgb(54 86 214 / 0.14), transparent 70%);
+}
+
+/* 스크롤 연동: 지원하는 브라우저에서만 */
+@supports (animation-timeline: view()) {
+    .split-fill .w {
+        color: var(--faint);
+        animation: fill linear both;
+        animation-timeline: view();
+        animation-range: cover calc(6% + var(--i) * 3%) cover calc(22% + var(--i) * 3%);
+    }
+
+    .layer.back {
+        animation: driftBack linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+    }
+
+    .layer.front {
+        animation: driftFront linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+    }
+
+    .hero-copy {
+        animation: fadeAway linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 70vh;
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(calc(28px * var(--move)));
+    }
+}
+
+@keyframes slideBack {
+    from {
+        opacity: 0;
+        transform: translate(calc(60px * var(--move)), calc(-40px * var(--move))) rotate(calc(4deg * var(--move)));
+    }
+}
+
+@keyframes slideFront {
+    from {
+        opacity: 0;
+        transform: translate(calc(-40px * var(--move)), calc(70px * var(--move))) rotate(calc(-3deg * var(--move)));
+    }
+}
+
+@keyframes driftBack {
+    to {
+        translate: 0 calc(90px * var(--move));
+    }
+}
+
+@keyframes driftFront {
+    to {
+        translate: 0 calc(-60px * var(--move));
+    }
+}
+
+@keyframes fadeAway {
+    to {
+        opacity: 0.15;
+        translate: 0 calc(-40px * var(--move));
+    }
+}
+
+@keyframes fill {
+    to {
+        color: var(--ink);
+    }
+}
+
+@keyframes loop {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes nudge {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(4px);
+    }
+}
+
+@media (max-width: 960px) {
+    .js .steps {
+        padding-left: 0;
+    }
+
+    .js .steps::before,
+    .rail-fill {
+        display: none;
+    }
+
+    .js .step {
+        opacity: 1;
+    }
+
+    .js .step.active {
+        translate: none;
+    }
+}
