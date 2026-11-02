@@ -280,26 +280,27 @@ p {
     margin-top: 36px;
 }
 
+/* 앱 창(1160x800) 두 장을 겹친다. 뒤 장은 위·오른쪽으로, 앞 장은 아래·왼쪽으로 비켜 둔다. */
 .hero-stage {
     position: relative;
-    height: min(640px, 62vw);
+    aspect-ratio: 5 / 4;
 }
 
 .layer {
     position: absolute;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1160 / 800;
 }
 
 .layer.back {
     right: 0;
     top: 0;
-    height: 88%;
+    width: 80%;
 }
 
 .layer.front {
-    left: 4%;
+    left: 0;
     bottom: 0;
-    height: 94%;
+    width: 92%;
 }
 
 .depth {
@@ -353,8 +354,8 @@ p {
 
 .how-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 96px;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 64px;
     align-items: start;
 }
 
@@ -393,10 +394,10 @@ p {
 
 .stage {
     position: sticky;
-    top: 112px;
-    height: min(640px, calc(100dvh - 160px));
-    aspect-ratio: 3 / 4;
-    margin-inline: auto;
+    top: max(112px, calc(50dvh - 260px));
+    width: 100%;
+    margin-top: 96px;
+    aspect-ratio: 1160 / 800;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     background: #fff;
@@ -482,6 +483,111 @@ p {
     margin-top: 24px;
     font-size: 14px;
     color: var(--muted);
+}
+
+/* 신규 개발: 앱의 단계 바처럼 생긴 탭과 단계 화면 */
+.build-head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 48px;
+    align-items: end;
+}
+
+.build h2 {
+    font-size: clamp(30px, 3.8vw, 48px);
+    font-weight: 800;
+}
+
+.build-head p {
+    max-width: 32em;
+    color: var(--ink-2);
+    font-size: 17px;
+}
+
+.phases {
+    margin-top: 56px;
+}
+
+.phase-tabs {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+}
+
+html:not(.js) .phase-tabs {
+    display: none;
+}
+
+.phase-tabs button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 4px 10px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: inset 0 4px 0 var(--hair);
+    transition:
+        color 0.3s,
+        box-shadow 0.5s var(--ease);
+}
+
+.phase-tabs button span {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--surface);
+    font-size: 13px;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+}
+
+.phase-tabs button:hover {
+    color: var(--ink);
+}
+
+.phase-tabs .done {
+    color: var(--ink);
+    box-shadow: inset 0 4px 0 var(--ink);
+}
+
+.phase-tabs [aria-selected="true"] {
+    color: var(--accent);
+    box-shadow: inset 0 4px 0 var(--accent);
+}
+
+.phase-tabs [aria-selected="true"] span {
+    background: var(--accent);
+    color: #fff;
+}
+
+.phase-panel {
+    margin: 28px 0 0;
+}
+
+.phase-panel figcaption {
+    max-width: 46em;
+    margin-bottom: 24px;
+    color: var(--ink-2);
+}
+
+.phase-panel figcaption b {
+    color: var(--ink);
+}
+
+.phase-panel img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 /* 기능 */
@@ -577,22 +683,50 @@ p {
 }
 
 .cell-mode img.crop {
-    aspect-ratio: 600 / 230;
-    object-position: bottom;
+    max-width: 680px;
+    border-radius: 16px 16px 0 0;
 }
 
 .cell-log img.crop {
-    aspect-ratio: 600 / 360;
-    object-position: 0 42%;
+    max-width: 640px;
+    aspect-ratio: 640 / 340;
+    object-position: top left;
 }
 
 .cell-local img.crop {
-    width: 432px;
-    max-width: none;
+    max-width: 420px;
+    margin: auto auto 0 0;
+    aspect-ratio: 420 / 330;
+    object-position: top;
+}
+
+.cell-ai,
+.cell-new {
+    grid-column: span 3;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.cell-ai {
+    background: var(--surface);
+    box-shadow: none;
+}
+
+.cell-ai img.crop {
+    max-width: 360px;
+    margin: auto auto 0;
+    aspect-ratio: 360 / 300;
+    object-position: top;
+}
+
+/* 원본 배율 그대로 입력 칸 부분만 보이게 자른다 */
+.cell-new img.crop {
     margin: auto 0 0;
-    aspect-ratio: 432 / 340;
+    max-width: none;
+    aspect-ratio: 520 / 300;
     object-fit: none;
-    object-position: -168px -195px;
+    object-position: -244px -46px;
 }
 
 /* 자주 묻는 질문 */
@@ -746,13 +880,26 @@ footer a:hover {
     }
 
     .hero-stage {
-        height: min(480px, 92vw);
+        width: min(640px, 100%);
+        margin-inline: auto;
     }
 
     .how-grid,
-    .faq-grid {
+    .faq-grid,
+    .build-head {
         grid-template-columns: 1fr;
         gap: 40px;
+    }
+
+    .build-head {
+        gap: 20px;
+    }
+
+    .phase-tabs button {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        font-size: 14px;
     }
 
     .stage {
@@ -768,7 +915,7 @@ footer a:hover {
     }
 
     .step img {
-        width: min(360px, 100%);
+        width: 100%;
         border-radius: var(--radius);
         box-shadow: var(--shadow);
     }
@@ -786,7 +933,9 @@ footer a:hover {
     .cell-mode,
     .cell-branch,
     .cell-local,
-    .cell-log {
+    .cell-log,
+    .cell-ai,
+    .cell-new {
         grid-column: auto;
     }
 
@@ -796,7 +945,9 @@ footer a:hover {
 
     .cell-mode,
     .cell-log,
-    .cell-local {
+    .cell-local,
+    .cell-ai,
+    .cell-new {
         padding-bottom: 0;
     }
 }
@@ -1177,6 +1328,16 @@ footer a:hover {
     animation: blink 0.9s steps(1) infinite;
 }
 
+/* 신규 개발: 단계를 바꾸면 화면이 아래에서 떠오른다(숨겼다 보이면 애니메이션이 다시 돈다) */
+.js .phase-panel figcaption,
+.js .phase-panel img {
+    animation: phaseIn 0.7s var(--ease) both;
+}
+
+.js .phase-panel img {
+    animation-delay: 0.06s;
+}
+
 /* 자주 묻는 질문: 높이를 부드럽게 연다 */
 .faq-list details::details-content {
     block-size: 0;
@@ -1278,6 +1439,13 @@ footer a:hover {
     to {
         opacity: 0.15;
         translate: 0 calc(-40px * var(--move));
+    }
+}
+
+@keyframes phaseIn {
+    from {
+        opacity: 0;
+        transform: translateY(calc(18px * var(--move)));
     }
 }
 

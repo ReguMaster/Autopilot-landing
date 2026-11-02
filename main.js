@@ -258,12 +258,47 @@ const setupSteps = () => {
     addEventListener("resize", () => setStage(activeIndex));
 };
 
+// 신규 개발 단계 탭. 앞 단계는 앱의 단계 바처럼 마친 색으로 칠하고, 방향키로 옮겨 다닌다.
+const setupPhases = () => {
+    const tabs = [...document.querySelectorAll(".phase-tabs [role=tab]")];
+    const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
+
+    const select = (index, shouldFocus) => {
+        tabs.forEach((tab, i) => {
+            const isActive = i === index;
+            tab.setAttribute("aria-selected", String(isActive));
+            tab.tabIndex = isActive ? 0 : -1;
+            tab.classList.toggle("done", i < index);
+            panels[i].hidden = !isActive;
+        });
+
+        if (shouldFocus) {
+            tabs[index].focus();
+        }
+    };
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => select(index, false));
+        tab.addEventListener("keydown", (event) => {
+            const moves = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: tabs.length - 1 };
+
+            if (event.key in moves) {
+                event.preventDefault();
+                select((moves[event.key] + tabs.length) % tabs.length, true);
+            }
+        });
+    });
+
+    select(0, false);
+};
+
 document.querySelectorAll("[data-split]").forEach(splitWords);
 setupNav();
 setupButtons();
 setupSpotlight();
 setupReveal();
 setupSteps();
+setupPhases();
 
 if (finePointer) {
     attachTilt(document.querySelector(".hero-stage"), document.getElementById("hero"), 7);

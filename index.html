@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>AutoPilot | 자리를 비워도, 개발은 계속</title>
-        <meta name="description" content="할 일과 종료 시각만 정하면 Claude Code가 고치고 검증하고 커밋까지 남기는 자동 개발 앱이에요." />
+        <meta name="description" content="할 일과 종료 시각만 정하면 Claude Code와 Codex가 고치고 검증하고 커밋까지 남기는 자동 개발 앱이에요. 새로 만들 것도 기획부터 보안검토까지 맡겨요." />
         <meta name="theme-color" content="#ffffff" />
         <link rel="canonical" href="https://regumaster.github.io/Autopilot-landing/" />
         <link rel="icon" href="favicon.ico" sizes="any" />
@@ -13,7 +13,7 @@
         <meta property="og:site_name" content="AutoPilot" />
         <meta property="og:locale" content="ko_KR" />
         <meta property="og:title" content="AutoPilot | 자리를 비워도, 개발은 계속" />
-        <meta property="og:description" content="할 일과 종료 시각만 정하면 Claude Code가 고치고 검증하고 커밋까지 남기는 자동 개발 앱이에요." />
+        <meta property="og:description" content="할 일과 종료 시각만 정하면 Claude Code와 Codex가 고치고 검증하고 커밋까지 남기는 자동 개발 앱이에요. 새로 만들 것도 기획부터 보안검토까지 맡겨요." />
         <meta property="og:url" content="https://regumaster.github.io/Autopilot-landing/" />
         <meta property="og:image" content="https://regumaster.github.io/Autopilot-landing/assets/og.png" />
         <meta property="og:image:width" content="1200" />
@@ -38,6 +38,7 @@
                 <nav class="nav-links" aria-label="메인 메뉴">
                     <i class="pill" aria-hidden="true"></i>
                     <a href="#how">사용 방법</a>
+                    <a href="#build">신규 개발</a>
                     <a href="#features">기능</a>
                     <a href="#faq">자주 묻는 질문</a>
                     <a href="https://github.com/ReguMaster/Autopilot/releases/latest" class="btn btn-primary"><span class="roll">다운로드</span></a>
@@ -50,7 +51,7 @@
                 <div class="wrap">
                     <div class="hero-copy">
                         <h1 class="split-mask" data-split>자리를 비워도,<br /><em>개발은 계속.</em><span class="caret" aria-hidden="true"></span></h1>
-                        <p>할 일과 종료 시각만 정하세요. Claude Code가 고치고 검증하고, 돌아왔을 때 볼 커밋을 남겨요.</p>
+                        <p>할 일과 종료 시각만 정하세요. Claude Code와 Codex가 고치고 검증하고, 돌아왔을 때 볼 커밋을 남겨요. 새로 만들 것도 기획부터 보안검토까지 맡길 수 있어요.</p>
                         <div class="hero-actions">
                             <a class="btn btn-primary" href="https://github.com/ReguMaster/Autopilot/releases/latest">
                                 <span class="roll">다운로드</span><span class="glyph" aria-hidden="true">↓</span>
@@ -60,10 +61,10 @@
                     </div>
                     <div class="hero-stage">
                         <div class="layer back">
-                            <div class="depth"><img src="assets/screenshots/done.png" alt="AutoPilot 결과 화면. 일을 마쳤고 줄어든 응답 시간이 표시돼요." width="603" height="803" /></div>
+                            <div class="depth"><img src="assets/screenshots/done.png" alt="AutoPilot 결과 화면. 신규 개발의 다섯 단계를 모두 마치고 회차별 커밋을 보여줘요." width="1160" height="800" /></div>
                         </div>
                         <div class="layer front">
-                            <div class="depth"><img src="assets/screenshots/running.png" alt="AutoPilot 실행 화면. 3회차 진행 중이고 지금 하는 일을 문장으로 보여줘요." width="603" height="803" fetchpriority="high" /></div>
+                            <div class="depth"><img src="assets/screenshots/running.png" alt="AutoPilot 실행 화면. 개발 단계 5회차가 진행 중이고 지금 하는 일을 문장으로 보여줘요." width="1160" height="800" fetchpriority="high" /></div>
                         </div>
                     </div>
                 </div>
@@ -89,25 +90,63 @@
                             <div class="rail-fill" aria-hidden="true"></div>
                             <div class="step" data-stage="0">
                                 <h3>작업을 정해요</h3>
-                                <p>Git 프로젝트 폴더를 열고 할 일을 적어요. 모델, 작업 방식, 종료 시각도 같은 자리에서 고르고, 프로젝트는 탭으로 여러 개 열어 따로 돌려요.</p>
-                                <figure><img src="assets/screenshots/ready.png" alt="AutoPilot 시작 화면" width="603" height="803" loading="lazy" /></figure>
+                                <p>Git 프로젝트 폴더를 열고 할 일을 적어요. 모델, 작업 방식, 종료 시각도 같은 자리에서 고르고, 프로젝트는 왼쪽에 여러 개 열어 따로 돌려요.</p>
+                                <figure><img src="assets/screenshots/maintain-ready.png" alt="AutoPilot 시작 화면. 할 일을 적고 지난 실행을 확인해요." width="1160" height="800" loading="lazy" /></figure>
                             </div>
                             <div class="step" data-stage="1">
                                 <h3>자리를 비워요</h3>
-                                <p>Claude Code가 수정하고 테스트를 돌려요. 지금 무엇을 하는지 짧은 문장으로 들려줘요.</p>
-                                <figure><img src="assets/screenshots/running.png" alt="AutoPilot 실행 화면" width="603" height="803" loading="lazy" /></figure>
+                                <p>Claude Code나 Codex가 수정하고 테스트를 돌려요. 지금 무엇을 하는지는 짧은 문장으로, 검증으로 확인한 변화는 숫자로 보여줘요.</p>
+                                <figure><img src="assets/screenshots/maintain.png" alt="AutoPilot 실행 화면. 검색 응답 시간이 1.4초에서 0.2초로 줄었어요." width="1160" height="800" loading="lazy" /></figure>
                             </div>
                             <div class="step" data-stage="2">
                                 <h3>돌아와서 확인해요</h3>
                                 <p>회차마다 커밋이 남고 리포트가 쌓여요. 바뀐 점을 살펴보고 반영할지 직접 정해요. 마친 화면은 카드 이미지로 저장해 공유할 수도 있어요.</p>
-                                <figure><img src="assets/screenshots/done.png" alt="AutoPilot 결과 화면" width="603" height="803" loading="lazy" /></figure>
+                                <figure><img src="assets/screenshots/maintain-done.png" alt="AutoPilot 결과 화면. 성과 두 가지와 회차별 커밋을 보여줘요." width="1160" height="800" loading="lazy" /></figure>
                             </div>
                         </div>
                         <div class="stage" aria-hidden="true">
-                            <img class="active" src="assets/screenshots/ready.png" alt="" width="603" height="803" loading="lazy" />
-                            <img src="assets/screenshots/running.png" alt="" width="603" height="803" loading="lazy" />
-                            <img src="assets/screenshots/done.png" alt="" width="603" height="803" loading="lazy" />
+                            <img class="active" src="assets/screenshots/maintain-ready.png" alt="" width="1160" height="800" loading="lazy" />
+                            <img src="assets/screenshots/maintain.png" alt="" width="1160" height="800" loading="lazy" />
+                            <img src="assets/screenshots/maintain-done.png" alt="" width="1160" height="800" loading="lazy" />
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section build" id="build">
+                <div class="wrap">
+                    <div class="build-head">
+                        <h2 class="split-mask" data-split>만들 것만 적으면,<br />보안검토까지.</h2>
+                        <p class="reveal">새 프로젝트는 기획, 디자인, 개발, 테스트/QA, 보안검토를 차례로 밟아요. 단계마다 일할 AI를 Claude나 Codex로 고르고, 확인이 필요한 단계에서는 멈춰서 기다려요.</p>
+                    </div>
+                    <div class="phases reveal">
+                        <div class="phase-tabs" role="tablist" aria-label="신규 개발 단계">
+                            <button type="button" role="tab" id="phase-tab-plan" aria-controls="phase-plan" aria-selected="true"><span>1</span>기획</button>
+                            <button type="button" role="tab" id="phase-tab-design" aria-controls="phase-design" aria-selected="false" tabindex="-1"><span>2</span>디자인</button>
+                            <button type="button" role="tab" id="phase-tab-build" aria-controls="phase-build" aria-selected="false" tabindex="-1"><span>3</span>개발</button>
+                            <button type="button" role="tab" id="phase-tab-qa" aria-controls="phase-qa" aria-selected="false" tabindex="-1"><span>4</span>테스트/QA</button>
+                            <button type="button" role="tab" id="phase-tab-security" aria-controls="phase-security" aria-selected="false" tabindex="-1"><span>5</span>보안검토</button>
+                        </div>
+                        <figure class="phase-panel" role="tabpanel" id="phase-plan" aria-labelledby="phase-tab-plan">
+                            <figcaption><b>두 AI가 합의할 때까지 주고받아요.</b> 메인 Codex와 Claude가 기획안을 두고 더 고칠 것이 없을 때까지 이야기하고, 끝까지 못 맞춘 쟁점만 직접 골라요.</figcaption>
+                            <img src="assets/screenshots/plan.png" alt="기획 단계. Codex와 Claude가 대기 알림 규칙을 두고 주고받는 협의 대화" width="1160" height="800" loading="lazy" />
+                        </figure>
+                        <figure class="phase-panel" role="tabpanel" id="phase-design" aria-labelledby="phase-tab-design">
+                            <figcaption><b>두 안을 나란히 놓고 골라요.</b> Claude와 Codex가 따로 그린 디자인을 비교하고, 마음에 드는 안으로 개발을 시작해요.</figcaption>
+                            <img src="assets/screenshots/design.png" alt="디자인 확인 화면. Claude 안과 Codex 안을 나란히 비교" width="1160" height="800" loading="lazy" />
+                        </figure>
+                        <figure class="phase-panel" role="tabpanel" id="phase-build" aria-labelledby="phase-tab-build">
+                            <figcaption><b>회차마다 고치고, 검증하고, 커밋해요.</b> 확정한 기획서와 디자인을 읽고 뼈대부터 기능까지 차례로 만들어요.</figcaption>
+                            <img src="assets/screenshots/running.png" alt="개발 단계. 5회차가 진행 중이고 남긴 커밋 4개를 보여줘요." width="1160" height="800" loading="lazy" />
+                        </figure>
+                        <figure class="phase-panel" role="tabpanel" id="phase-qa" aria-labelledby="phase-tab-qa">
+                            <figcaption><b>흐름을 끝까지 눌러 봐요.</b> E2E로 예약 흐름을 확인하고, 고치지 못한 실패가 남으면 정한 횟수만큼 개발로 되돌려요.</figcaption>
+                            <img src="assets/screenshots/qa.png" alt="테스트/QA 단계. E2E 통과가 16개에서 18개로 늘었어요." width="1160" height="800" loading="lazy" />
+                        </figure>
+                        <figure class="phase-panel" role="tabpanel" id="phase-security" aria-labelledby="phase-tab-security">
+                            <figcaption><b>내보내기 전에 한 번 더 살펴요.</b> 점검 목록대로 권한·입력·비밀값을 확인하고, 찾은 문제는 심각도와 함께 적고 고쳐요.</figcaption>
+                            <img src="assets/screenshots/security.png" alt="보안검토 단계. 예약 조회 API가 다른 사람의 예약을 보여 주던 문제를 고치는 중" width="1160" height="800" loading="lazy" />
+                        </figure>
                     </div>
                 </div>
             </section>
@@ -117,19 +156,19 @@
                     <h2 class="split-fill" data-split>열심히 했다는 말 대신,<br />바뀐 숫자로 남겨요.</h2>
                     <div class="outcomes-list">
                         <div class="outcome reveal">
-                            <div class="outcome-label">상품 검색 응답 시간<span>3회차</span></div>
+                            <div class="outcome-label">상품 검색 응답 시간<span>2회차</span></div>
                             <div class="outcome-value" role="img" aria-label="1.4초에서 0.2초로">
                                 <span class="before">1.4<small>초</small></span><span class="arrow">→</span><span class="after"><b class="num" data-from="1.4" data-to="0.2" data-dec="1">0.2</b><small>초</small></span>
                             </div>
                         </div>
                         <div class="outcome reveal">
-                            <div class="outcome-label">결제 중복 청구 재현<span>2회차</span></div>
+                            <div class="outcome-label">결제 중복 청구 재현<span>1회차</span></div>
                             <div class="outcome-value" role="img" aria-label="4건에서 0건으로">
                                 <span class="before">4<small>건</small></span><span class="arrow">→</span><span class="after"><b class="num" data-from="4" data-to="0" data-dec="0">0</b><small>건</small></span>
                             </div>
                         </div>
                         <div class="outcome reveal">
-                            <div class="outcome-label">주문 목록 첫 응답 크기<span>1회차</span></div>
+                            <div class="outcome-label">주문 목록 첫 응답 크기<span>3회차</span></div>
                             <div class="outcome-value" role="img" aria-label="2.4메가바이트에서 36킬로바이트로">
                                 <span class="before">2.4<small>MB</small></span><span class="arrow">→</span><span class="after"><b class="num" data-from="0" data-to="36" data-dec="0">36</b><small>KB</small></span>
                             </div>
@@ -146,7 +185,7 @@
                         <article class="cell cell-mode reveal">
                             <h3>끝낼 시각까지만 일해요</h3>
                             <p>정한 작업만 처리하거나, 끝난 뒤에도 개선할 곳을 찾게 해요. 정한 시각이나 한도가 리셋될 때 시작하게 예약하고, 한도에 걸리면 기다렸다 이어가요.</p>
-                            <img class="crop" src="assets/screenshots/ready.png" alt="작업 방식과 종료 시각을 고르는 입력 영역" width="603" height="803" loading="lazy" />
+                            <img class="crop" src="assets/screenshots/composer-maintain.png" alt="할 일, 모델, 작업 방식, 종료 시각을 고르는 입력창" width="904" height="172" loading="lazy" />
                         </article>
 
                         <article class="cell cell-branch reveal">
@@ -163,13 +202,25 @@
                                 <h3>내 PC, 내 프로젝트에서</h3>
                                 <p>클라우드에 올리지 않고 내 폴더에서 바로 실행해요. 모델과 설정은 프로젝트마다 따로 둘 수 있어요.</p>
                             </div>
-                            <img class="crop" src="assets/screenshots/settings.png" alt="대상 프로젝트 폴더를 고르는 설정 화면" width="603" height="803" loading="lazy" />
+                            <img class="crop" src="assets/screenshots/settings-panel.png" alt="대상 프로젝트와 연결 저장소를 고르는 설정 화면" width="420" height="742" loading="lazy" />
                         </article>
 
                         <article class="cell cell-log reveal">
                             <h3>기록은 한 줄도 빠짐없이</h3>
                             <p>읽은 파일, 고친 파일, 돌린 명령이 회차별로 남아요. 나중에 이유를 되짚어 볼 수 있어요.</p>
-                            <img class="crop" src="assets/screenshots/history.png" alt="회차별 작업 로그 화면" width="603" height="803" loading="lazy" />
+                            <img class="crop" src="assets/screenshots/history-sheet.png" alt="회차별 작업 로그 화면" width="916" height="746" loading="lazy" />
+                        </article>
+
+                        <article class="cell cell-ai reveal">
+                            <h3>Claude와 Codex를 함께</h3>
+                            <p>일할 AI를 고르고 Codex의 모델과 추론 단계도 입력창에서 바꿔요. 실행 중에 바꾸면 다음 회차부터 적용돼요.</p>
+                            <img class="crop" src="assets/screenshots/ai-popover.png" alt="Codex 모델과 추론 단계를 고르는 창" width="360" height="510" loading="lazy" />
+                        </article>
+
+                        <article class="cell cell-new reveal">
+                            <h3>새 프로젝트도 한두 줄로</h3>
+                            <p>만들고 싶은 것을 적으면 Claude가 초안을 채워요. 칩으로 다듬고 만들면 폴더, Git 저장소, 첫 커밋까지 준비돼요.</p>
+                            <img class="crop" src="assets/screenshots/new-project.png" alt="Claude가 쓴 새 프로젝트 초안을 다듬는 화면" width="1160" height="800" loading="lazy" />
                         </article>
                     </div>
                 </div>
@@ -181,7 +232,15 @@
                     <div class="faq-list reveal">
                         <details open>
                             <summary>무엇이 필요한가요?</summary>
-                            <p>Windows·macOS·Linux 데스크톱, Git, Claude Code 사용 권한이 필요해요. 프로젝트에는 커밋이 하나 이상 있어야 해요.</p>
+                            <p>Windows·macOS·Linux 데스크톱, Git, Claude Code 사용 권한이 필요해요. 이미 있는 프로젝트에는 커밋이 하나 이상 있어야 하고, 새 프로젝트는 앱이 폴더와 저장소를 만들어 줘요.</p>
+                        </details>
+                        <details>
+                            <summary>Codex도 꼭 있어야 하나요?</summary>
+                            <p>아니요. 기본은 Claude Code만 써요. Codex CLI를 설치하고 로그인해 두면 회차를 돌릴 AI나 단계별 메인·보조로 고를 수 있어요. 보조가 Codex면 프로젝트 내용이 OpenAI로 가기 때문에, 외부 서비스로 보내기를 허용했을 때만 동작해요.</p>
+                        </details>
+                        <details>
+                            <summary>신규 개발은 중간에 멈추나요?</summary>
+                            <p>기획과 디자인을 마치면 멈추고 산출물을 보여 줘요. 확인하면 다음 단계로 넘어가고, 고칠 점을 적으면 그 단계를 다시 해요. 테스트/QA나 보안검토에서 고치지 못한 문제가 남으면 정한 횟수만큼 개발로 되돌려요.</p>
                         </details>
                         <details>
                             <summary>컴퓨터를 계속 켜 두어야 하나요?</summary>
